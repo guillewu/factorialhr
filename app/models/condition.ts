@@ -1,18 +1,6 @@
 import { DateTime } from 'luxon'
-import {
-  BaseModel,
-  belongsTo,
-  column,
-  hasMany,
-  hasManyThrough,
-  manyToMany,
-} from '@adonisjs/lucid/orm'
-import type {
-  BelongsTo,
-  HasMany,
-  HasManyThrough,
-  ManyToMany,
-} from '@adonisjs/lucid/types/relations'
+import { BaseModel, column, hasMany, manyToMany } from '@adonisjs/lucid/orm'
+import type { HasMany, ManyToMany } from '@adonisjs/lucid/types/relations'
 import Product from './product.js'
 import ConditionProduct from './condition_product.js'
 
