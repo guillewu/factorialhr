@@ -6,8 +6,6 @@ export default class extends BaseSchema {
   async up() {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id')
-      table.integer('product_1_id').references('products.id')
-      table.integer('product_2_id').references('products.id')
       table.enum('rule', ['EXCLUDES', 'REQUIRED']).notNullable()
       table.text('description')
 

@@ -1,9 +1,22 @@
 import { DateTime } from 'luxon'
-import { BaseModel, belongsTo, column, hasMany } from '@adonisjs/lucid/orm'
-import type { BelongsTo, HasMany } from '@adonisjs/lucid/types/relations'
+import {
+  BaseModel,
+  belongsTo,
+  column,
+  hasMany,
+  hasManyThrough,
+  manyToMany,
+} from '@adonisjs/lucid/orm'
+import type {
+  BelongsTo,
+  HasMany,
+  HasManyThrough,
+  ManyToMany,
+} from '@adonisjs/lucid/types/relations'
 import Category from './category.js'
 import ProductVariant from './product_variant.js'
 import Condition from './condition.js'
+import ConditionProduct from './condition_product.js'
 
 export default class Product extends BaseModel {
   @belongsTo(() => Category)
@@ -12,8 +25,13 @@ export default class Product extends BaseModel {
   @hasMany(() => ProductVariant)
   declare productVariants: HasMany<typeof ProductVariant>
 
-  @hasMany(() => Condition)
-  declare conditions: HasMany<typeof Condition>
+  @hasMany(() => ConditionProduct)
+  declare conditionProducts: HasMany<typeof ConditionProduct>
+
+  @manyToMany(() => Condition, {
+    pivotTable: 'condition_products',
+  })
+  declare conditions: ManyToMany<typeof Condition>
 
   @column({ isPrimary: true })
   declare id: number
@@ -23,6 +41,9 @@ export default class Product extends BaseModel {
 
   @column()
   declare name: string
+
+  @column()
+  declare family: string
 
   @column()
   declare description: string

@@ -1,9 +1,13 @@
 import { DateTime } from 'luxon'
-import { BaseModel, belongsTo, column, hasMany } from '@adonisjs/lucid/orm'
-import type { BelongsTo, HasMany } from '@adonisjs/lucid/types/relations'
+import { BaseModel, belongsTo, column } from '@adonisjs/lucid/orm'
+import type { BelongsTo } from '@adonisjs/lucid/types/relations'
 import Product from './product.js'
+import Condition from './condition.js'
 
-export default class ProductVariant extends BaseModel {
+export default class ConditionProduct extends BaseModel {
+  @belongsTo(() => Condition)
+  declare condition: BelongsTo<typeof Condition>
+
   @belongsTo(() => Product)
   declare product: BelongsTo<typeof Product>
 
@@ -14,13 +18,7 @@ export default class ProductVariant extends BaseModel {
   declare productId: number
 
   @column()
-  declare name: string
-
-  @column()
-  declare price: number
-
-  @column()
-  declare stock: number
+  declare conditionId: number
 
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime

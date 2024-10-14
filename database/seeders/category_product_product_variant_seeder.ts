@@ -3,6 +3,7 @@ import Product from '#models/product'
 import ProductVariant from '#models/product_variant'
 import Condition, { RuleOptions } from '#models/condition'
 import { BaseSeeder } from '@adonisjs/lucid/seeders'
+import ConditionProduct from '#models/condition_product'
 
 export default class extends BaseSeeder {
   async run() {
@@ -11,13 +12,13 @@ export default class extends BaseSeeder {
       { id: 2, name: 'Ski' },
     ])
     await Product.createMany([
-      { id: 1, categoryId: 1, name: 'Full-suspension frame' },
-      { id: 2, categoryId: 1, name: 'Diamond frame' },
-      { id: 3, categoryId: 1, name: 'Step-through frame' },
-      { id: 4, categoryId: 1, name: 'Road wheels' },
-      { id: 5, categoryId: 1, name: 'Mountain wheels' },
-      { id: 6, categoryId: 1, name: 'Fat bike wheels' },
-      { id: 7, categoryId: 1, name: 'Chain' },
+      { id: 1, categoryId: 1, name: 'Full-suspension frame', family: 'frame' },
+      { id: 2, categoryId: 1, name: 'Diamond frame', family: 'frame' },
+      { id: 3, categoryId: 1, name: 'Step-through frame', family: 'frame' },
+      { id: 4, categoryId: 1, name: 'Road wheels', family: 'wheel' },
+      { id: 5, categoryId: 1, name: 'Mountain wheels', family: 'wheel' },
+      { id: 6, categoryId: 1, name: 'Fat bike wheels', family: 'wheel' },
+      { id: 7, categoryId: 1, name: 'Chain', family: 'chain' },
     ])
     await ProductVariant.createMany([
       { id: 1, productId: 1, name: 'Matte', stock: 10, price: 130 },
@@ -34,8 +35,11 @@ export default class extends BaseSeeder {
       { id: 12, productId: 7, name: '8-speed chain', stock: 10, price: 15 },
     ])
 
-    await Condition.createMany([
-      { id: 1, product1Id: 5, product2Id: 1, rule: RuleOptions.Required },
+    await Condition.createMany([{ id: 1, rule: RuleOptions.Required }])
+
+    await ConditionProduct.createMany([
+      { id: 1, conditionId: 1, productId: 5 },
+      { id: 2, conditionId: 1, productId: 1 },
     ])
   }
 }

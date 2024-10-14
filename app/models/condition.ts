@@ -1,7 +1,20 @@
 import { DateTime } from 'luxon'
-import { BaseModel, belongsTo, column } from '@adonisjs/lucid/orm'
-import type { BelongsTo } from '@adonisjs/lucid/types/relations'
+import {
+  BaseModel,
+  belongsTo,
+  column,
+  hasMany,
+  hasManyThrough,
+  manyToMany,
+} from '@adonisjs/lucid/orm'
+import type {
+  BelongsTo,
+  HasMany,
+  HasManyThrough,
+  ManyToMany,
+} from '@adonisjs/lucid/types/relations'
 import Product from './product.js'
+import ConditionProduct from './condition_product.js'
 
 export enum RuleOptions {
   Excludes = 'EXCLUDES',
@@ -9,27 +22,22 @@ export enum RuleOptions {
 }
 
 export default class Condition extends BaseModel {
-  @belongsTo(() => Product, {
-    foreignKey: 'product_1_id',
+  @manyToMany(() => Product, {
+    pivotTable: 'condition_products',
   })
-  declare product1: BelongsTo<typeof Product>
+  declare products: ManyToMany<typeof Product>
 
-  @belongsTo(() => Product, {
-    foreignKey: 'product_2_id',
-  })
-  declare productVariant2: BelongsTo<typeof Product>
+  @hasMany(() => ConditionProduct)
+  declare conditionProducts: HasMany<typeof ConditionProduct>
 
   @column({ isPrimary: true })
   declare id: number
 
   @column()
-  declare product1Id: number
-
-  @column()
-  declare product2Id: number
-
-  @column()
   declare rule: RuleOptions
+
+  @column()
+  declare description: string
 
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime
