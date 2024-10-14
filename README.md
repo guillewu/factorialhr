@@ -2,18 +2,18 @@
 
 - [Introduction](#introduction)
 - [Answers](#answers):
-  1. [Data Model](#1-data-model)
-  2. [Main User Actions](#2-main-user-actions)
-  3. [Product Page](#3-product-page)
-  4. [Add to Cart Action](#4-add-to-cart-action)
-  5. [Administrative Workflows](#5-administrative-workflows)
+  - [1. Data Model](#1-data-model)
+  - [2. Main User Actions](#2-main-user-actions)
+  - [3. Product Page](#3-product-page)
+  - [4. Add to Cart Action](#4-add-to-cart-action)
+  - [5. Administrative Workflows](#5-administrative-workflows)
 - [Next steps](#next-steps)
 
-### Introduction
+## Introduction
 
-This repository contains an [AdonisJS](https://adonisjs.com) project that implements the data model designed to meet the requirements of the [Factorial HR coding challenge](docs/challenge.md).
+This repository contains an [AdonisJS](https://adonisjs.com) project that implements the data model designed to meet the requirements of the Factorial coding challenge.
 
-AdonisJS was selected as the framework for its quick setup and developer-friendly environment, allowing me to focus on modeling the application's logic. Given its similarities to Ruby on Rails, AdonisJS was an ideal choice for this challenge.
+AdonisJS was selected as the framework for its quick setup and developer-friendly environment, allowing me to focus on modeling the application's logic. Given its similarities to Ruby on Rails (used at Factorial), AdonisJS was an ideal choice for this challenge.
 
 The models representing the database schema, can be found in the [app/models](app/models/) directory. Additionally, a [seeder](database/seeders/category_product_product_variant_seeder.ts) has been provided to populate the database with test data, offering a clearer view on the schema.
 
@@ -30,9 +30,9 @@ To run the application locally to test out the endpoint:
 - `npm run dev`
 - Visit [localhost:3333/products?filter=frame]() or `wheel`/`chain`
 
-### Answers
+## Answers
 
-#### 1. Data model
+### 1. Data model
 
 > What data model would best support this application? Can you describe it? Include table specifications (or documents if it's a non-relational database) with fields, their associations, and the meaning of each entity.
 
@@ -62,7 +62,7 @@ The models along with their associations can be found in the [app/models](app/mo
 
 ![ER Diagram](docs/ER_diagram.png)
 
-#### 2. Main user actions
+### 2. Main user actions
 
 > Explain the main actions users would take on this e-commerce website in detail.
 
@@ -85,7 +85,7 @@ For the **Bike-builder Flow** the process is multi-step, where the user selects 
 3. Choose a chain.
 4. Any additional steps that Marcus would want to add (such as selecting brakes, handlebars, saddle, etc.).
 
-#### 3. Product page
+### 3. Product page
 
 > This is a read operation, performed when displaying a product page for the customer to purchase. How would you present this UI? How would you calculate which options are available? How would you calculate the price depending on the customer's selections?
 
@@ -117,7 +117,7 @@ At each step, we make a call to our api to display the indicated `Product` and i
           "updatedAt": "2024-10-12T15:50:18.000+00:00"
         }
       ],
-      "conditions": [ // Products that are compatible with each other
+      "conditions": [ // Products that are in/compatible with each other
         {
           "id": 1,
           "rule": "REQUIRED",
@@ -149,11 +149,11 @@ At each step, we make a call to our api to display the indicated `Product` and i
 ]
 ```
 
-In this case, we can observe that in the `conditions` object a Full-suspension frame is only compatible with Mountain wheels. If the user had selected a Full-suspension frame in the previous step then we can display Mountain wheels as the only selectable option. This logic can be handled in our front-end application.
+In this case, we can observe that in the `conditions` object, a Full-suspension frame is only compatible with Mountain wheels. If the user had selected a Full-suspension frame in the previous step then we can display Mountain wheels as the only selectable option. This logic can be handled in our front-end application.
 
 The total price is calculated by summing the prices of the selected `ProductVariants`.
 
-#### 4. Add to cart action
+### 4. Add to cart action
 
 > Once the customer makes their selection, there should be an "add to cart" button. What happens when the customer clicks this button? What is persisted in the database?
 
@@ -163,7 +163,7 @@ When the customer clicks the "Add to Cart" button, the following occurs:
 2. Each selected `ProductVariant` is added to the cart, along with the specified quantity, as a `CartProductVariant`.
 3. The UI is updated to reflect the addition, showing the total price and selected products in the cart.
 
-#### 5. Administrative workflows:
+### 5. Administrative workflows:
 
 > Describe the main workflows for Marcus to manage his store.
 
@@ -195,7 +195,7 @@ Since prices are stored in the `ProductVariant` table, Marcus can directly updat
 
 If Marcus needs to set special pricing for combinations of `ProductVariants` (e.g., a discounted bundle of a red road wheel and a black road frame), a new table would be required to track these dependent prices (e.g., `SpecialPricing`). This table could store pricing rules for specific combinations of `ProductVariants` to handle promotions or bundle pricing (e.g., a "buy together" discount).
 
-### Next steps
+## Next steps
 
 In a real-world scenario, the development process for this e-commerce website would be iterative. This design can be presented to stakeholders and changes can be applied accordingly. Next steps would involve:
 
