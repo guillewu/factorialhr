@@ -13,7 +13,10 @@ export class ProductService {
     if (family) {
       query.where('family', family)
     }
-
-    return query
+    const results = await query
+    return results.reduce((acc: any, curr) => {
+      acc[curr.id] = curr
+      return acc
+    }, {})
   }
 }

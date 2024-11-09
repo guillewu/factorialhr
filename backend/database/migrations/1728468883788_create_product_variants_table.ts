@@ -10,6 +10,7 @@ export default class extends BaseSchema {
       table.string('name').notNullable()
       table.decimal('price').notNullable()
       table.integer('stock').defaultTo(1).notNullable()
+      table.string('image_url')
 
       table.timestamp('created_at')
       table.timestamp('updated_at')

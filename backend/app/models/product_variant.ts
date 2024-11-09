@@ -22,6 +22,9 @@ export default class ProductVariant extends BaseModel {
   @column()
   declare stock: number
 
+  @column()
+  declare imageUrl: string
+
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime
 
