@@ -4,3 +4,5 @@ This directory contains the frontend (React) for Marcus' bike shop. To get start
 
 - `npm i`
 - `npm run dev`
+
+Visit: http://localhost:5173/bike-builder
